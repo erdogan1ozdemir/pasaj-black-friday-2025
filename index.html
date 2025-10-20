@@ -184,13 +184,16 @@
         /* İSTATİSTİK, SWOT VE GRID YAPILARI */
         .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1.5rem; }
         .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-        .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+        .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
         .stat-card {
             background-color: var(--card-bg); border: 1px solid var(--border-color);
             border-top: 5px solid var(--primary);
             border-radius: var(--card-radius); padding: 1.5rem; text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
-        .stat-value { font-size: 3rem; font-weight: 800; font-family: var(--font-family-special); color: var(--primary); }
+        .stat-value { font-size: 3rem; font-weight: 800; font-family: var(--font-family-special); color: var(--primary); line-height: 1.1; }
         .stat-label { font-size: 1rem; color: var(--text-secondary); margin-top: 0.5rem; }
         .swot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin: 40px 0; }
         .swot-card {
@@ -323,7 +326,7 @@
                 </div>
                 <div class="card">
                     <h3>2024'ten Çıkarımlar, 2025 için Yol Haritası</h3>
-                    <p>2024 Black Friday dönemi, pazarın rekor büyümesine rağmen <strong>lojistik altyapıdaki</strong> sistemsel krizlerle anılacaktır. Tüketiciler için en büyük sorun <strong>teslimat gecikmeleri ve sahte indirim algısı</strong> olmuştur. Bu zafiyetler, Turkcell Pasaj'a operasyonel mükemmelliği ve şeffaflığı bir pazarlama silahı olarak kullanma konusunda eşsiz bir fırsat sunmaktadır. Rakip analizleri, pazar liderlerinin artık sadece ürün satmadığını; müşteriyi kendi ekosistemlerine dahil etme ve sadakat programlarıyla bağlama savaşı verdiğini ortaya koyuyor. 2025'te başarı, bu kaotik ortamda "güvenilir liman" olarak konumlanmaktan geçmektedir.</p>
+                    <p>2024 Kasım ayı, Türkiye e-ticaret sektörü için <strong>~500 Milyar TL</strong> ciro ile rekor bir döneme işaret etse de, bu büyüme <strong>operasyonel ve lojistik krizleri</strong> de beraberinde getirdi. Trendyol 120 milyon, Hepsiburada ise saniyede 12 ürün satarak pazarın devasa potansiyelini gösterdi. Ancak <strong>60 bini aşan şikayet</strong> ve Ticaret Bakanlığı'nın kestiği <strong>27.4 Milyon TL'lik "aldatıcı indirim" cezaları</strong>, tüketici güveninin ne kadar kırılgan olduğunu ortaya koydu. Tüketiciler için en büyük sorunlar <strong>teslimat gecikmeleri ve sahte indirim algısı</strong> oldu. Bu zafiyetler, Turkcell Pasaj'a operasyonel mükemmelliği ve şeffaflığı bir pazarlama silahı olarak kullanma konusunda eşsiz bir fırsat sunmaktadır. Rakip analizleri, pazar liderlerinin artık sadece ürün satmadığını; müşteriyi kendi ekosistemlerine (Prime, Premium vb.) dahil etme ve sadakat programlarıyla bağlama savaşı verdiğini netleştiriyor. 2025'te başarı, bu kaotik ortamda "güvenilir liman" olarak konumlanmaktan, Turkcell'in finansal çözümlerini ve teknoloji DNA'sını doğru bir stratejiyle birleştirmekten geçmektedir.</p>
                 </div>
             </section>
 
@@ -332,23 +335,42 @@
                     <div class="section-icon"><i class="fas fa-chart-pie"></i></div>
                     <h2 class="section-title">Pazar ve Sektör Analizi</h2>
                 </div>
+                 <div class="stat-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">~500 Mr TL</div>
+                        <div class="stat-label">Kasım Ayı Toplam E-Ticaret Hacmi</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">120 Milyon</div>
+                        <div class="stat-label">Trendyol'da Satılan Ürün Adedi</div>
+                    </div>
+                     <div class="stat-card">
+                        <div class="stat-value">49 bin</div>
+                        <div class="stat-label">Satılan Robot Süpürge Adedi (HB)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">60 bin+</div>
+                        <div class="stat-label">Toplam Tüketici Şikayeti</div>
+                    </div>
+                </div>
                 <div class="card">
                     <h3>Kategori Liderleri ve Talep Patlaması</h3>
-                    <p>2024 Kasım ayında tüketiciler ertelenen teknolojik ihtiyaçlarını karşılamaya odaklandı. <strong>Cep telefonları, bilgisayarlar ve televizyonlar</strong> en çok işlem gören ürün grupları olurken, asıl talep patlaması küçük ev aletlerinde yaşandı. Özellikle <strong>robot süpürge</strong> satışları ikiye katlanırken, <strong>kahve makineleri ve halı yıkama makineleri</strong> gibi ürünlerde 10 katı aşan artışlar gözlemlendi. Bu durum, tüketicinin yaşam kalitesini artıran teknolojik ürünlere olan ilgisinin ve bu ürünleri indirim döneminde alma eğiliminin altını çizmektedir.</p>
+                    <p>2024 Kasım ayında tüketiciler ertelenen teknolojik ihtiyaçlarını karşılamaya odaklandı. <strong>Cep telefonları, bilgisayarlar ve televizyonlar</strong> en çok işlem gören ürün grupları olurken, asıl talep patlaması küçük ev aletlerinde yaşandı. Hepsiburada verilerine göre, özellikle <strong>robot süpürge</strong> satışları ikiye katlanarak 49 bin adede ulaşırken, <strong>kahve makineleri (65 bin adet) ve halı yıkama makineleri (33 bin adet)</strong> gibi ürünlerde 10 katı aşan artışlar gözlemlendi. Bu durum, tüketicinin yaşam kalitesini artıran teknolojik ürünlere olan ilgisinin ve bu ürünleri indirim döneminde alma eğiliminin altını çizmektedir.</p>
                 </div>
                 <div class="grid-2">
                     <div class="card">
                         <h4>Popüler Ürün Kategorileri Dağılımı</h4>
                          <div class="chart-container">
-                            <canvas id="kategoriDagilimiChart"></canvas>
+                             <canvas id="kategoriDagilimiChart"></canvas>
                         </div>
                     </div>
                     <div class="card">
-                        <h4>Öne Çıkan Ürünler</h4>
+                        <h4>Öne Çıkan Ürünler ve Satış Adetleri</h4>
                         <ul>
-                            <li><strong>Robot Süpürgeler:</strong> Satışlar geçen yıla göre 2 kat artarak ~49 bin adede ulaştı.</li>
+                            <li><strong>Robot Süpürgeler:</strong> Satışlar geçen yıla göre 2 kat artarak ~49 bin adede ulaştı (Hepsiburada).</li>
                             <li><strong>Kahve Makineleri:</strong> Sadece Hepsiburada platformunda 65 bin adet satıldı.</li>
-                            <li><strong>Halı Yıkama Makineleri:</strong> Satışlarda 11 kat artışla 33 bin adede ulaştı.</li>
+                            <li><strong>Halı Yıkama Makineleri:</strong> Satışlarda 11 kat artışla 33 bin adede ulaştı (Hepsiburada).</li>
+                            <li><strong>Airfryer:</strong> En çok aranan ve satılan küçük ev aletleri arasında yerini korudu.</li>
                             <li><strong>Cep Telefonları:</strong> Özellikle iPhone 15 ve Samsung'un orta segment modelleri yüksek talep gördü.</li>
                             <li><strong>Oyun Konsolları:</strong> PlayStation 5 stokları en çok aranan ürünler arasındaydı.</li>
                         </ul>
@@ -367,14 +389,21 @@
                     <div class="section-icon"><i class="fas fa-users"></i></div>
                     <h2 class="section-title">Tüketici Davranışları ve Beklentileri</h2>
                 </div>
-                <div class="grid-2">
+                 <div class="grid-2">
+                    <div class="card">
+                        <h4>Temel Satın Alma Motivasyonları</h4>
+                        <div class="chart-container">
+                             <canvas id="motivasyonChart"></canvas>
+                        </div>
+                    </div>
                     <div class="card">
                         <h4>Fırsat Avcısı vs. Bilinçli Tüketici</h4>
-                        <p>Kasım dönemi, iki ana tüketici profilini ortaya çıkardı. Bir yanda "fırsat avcıları", en düşük fiyatı bulmak için platformlar arası yoğun bir araştırma yaparken; diğer yanda "bilinçli tüketiciler", sahte indirimlerden ve teslimat sorunlarından kaçınmak için <strong>güvenilir satıcılara ve platformlara</strong> yöneldi. Fiyat karşılaştırma sitelerinin (Akakçe, Cimri) trafiği bu dönemde tavan yaparken, sosyal medyadaki "bu fiyata alınır mı?" tartışmaları da yoğunlaştı.</p>
-                    </div>
-                     <div class="card">
-                        <h4>Mobil Öncelikli Alışveriş Deneyimi</h4>
-                        <p>Satın almaların büyük çoğunluğu mobil uygulamalar üzerinden gerçekleşti. Bu durum, kullanıcı dostu, hızlı ve güvenli bir mobil deneyimin ne kadar kritik olduğunu bir kez daha gösterdi. Özellikle anlık bildirimlerle duyurulan "flaş indirimler" ve uygulama içi özel kuponlar, tüketicileri anlık satın almalara yönlendiren en önemli etkenler oldu. Uygulama performansı ve ödeme adımlarının basitliği, sepet terk etme oranlarını doğrudan etkiledi.</p>
+                        <p>Kasım dönemi, iki ana tüketici profilini ortaya çıkardı. Bir yanda "fırsat avcıları", en düşük fiyatı bulmak için platformlar arası yoğun bir araştırma yaparken; diğer yanda "bilinçli tüketiciler", sahte indirimlerden ve teslimat sorunlarından kaçınmak için <strong>güvenilir satıcılara ve platformlara</strong> yöneldi. Fiyat karşılaştırma sitelerinin (Akakçe, Cimri) trafiği bu dönemde tavan yaparken, sosyal medyadaki "bu fiyata alınır mı?" tartışmaları ve ürün incelemeleri satın alma kararını doğrudan etkiledi.</p>
+                         <ul>
+                            <li><strong>Araştırma Kanalı:</strong> Fiyat karşılaştırma siteleri, sosyal medya (özellikle X ve Instagram), influencer incelemeleri.</li>
+                             <li><strong>Güven Sinyali:</strong> Platformun/satıcının bilinirliği, olumlu kullanıcı yorumları, şeffaf fiyatlandırma.</li>
+                             <li><strong>Tetikleyici:</strong> Sınırlı süreli flaş indirimler, kişiye özel kuponlar, mobil bildirimler.</li>
+                        </ul>
                     </div>
                 </div>
                  <div class="tip-note">
@@ -394,23 +423,49 @@
                     <h3>Pazar Oyuncularının Stratejileri ve Zaafları</h3>
                     <p>Kasım 2024, pazarın büyük oyuncularının tüm kozlarını oynadığı bir satranç oyununa dönüştü. Pazaryerleri hacim ve ekosistem odaklı stratejiler izlerken, teknoloji perakendecileri omnichannel (fiziksel + online) güçlerini ve finansman çözümlerini öne çıkardı. Ancak neredeyse tüm oyuncular, artan talebin yarattığı operasyonel yük altında zorlandı.</p>
                 </div>
-                <div class="grid-2">
-                    <div class="card">
-                        <h4>Hepsiburada: "Efsane Kasım"</h4>
-                        <p>Hacim odaklı bir strateji izledi. "Hero" ürünler (iPhone, Roborock vb.) ile trafik çekti. En büyük gücü, büyük bankalarla yaptığı özel taksit ve ek indirim anlaşmaları oldu. Ancak bu yoğunluk, en çok "kargo gecikmesi" şikayetini de beraberinde getirdi.</p>
-                    </div>
-                    <div class="card">
-                        <h4>Trendyol: "Süper İndirim Günleri"</h4>
-                        <p>Moda ve kozmetikteki gücünü, elektronik kategorisine de agresif kupon ve canlı yayın indirimleri ile taşımaya çalıştı. Influencer işbirlikleri ve koleksiyon bazlı kampanyalarla genç kitleyi hedefledi. En büyük zaafı, sistemsel yavaşlamalar ve stokların hızla tükenmesi oldu.</p>
-                    </div>
-                    <div class="card">
-                        <h4>Amazon TR: "Gülümseten Kasım"</h4>
-                        <p>Stratejisini tamamen <strong>Prime üyeliği</strong> üzerine kurdu. Prime üyelerine özel erken erişim, ek indirimler ve hızlı teslimat vaadiyle rakiplerinden ayrıştı. "Bekleme Listesi" gibi özelliklerle stok yönetimini daha verimli hale getirmeye çalıştı. Zayıf yönü, rakiplere kıyasla daha sınırlı ürün çeşitliliği ve stokları oldu.</p>
-                    </div>
-                    <div class="card">
-                        <h4>MediaMarkt & Teknosa</h4>
-                        <p>Omnichannel güçlerini kullandılar. "Kulüp" üyelik programları ile sadık müşterilere özel fiyatlar sundular. Özellikle Teknosa'nın Kuveyt Türk ile yaptığı faizsiz finansman kampanyası dikkat çekti. Gözlenen en büyük problem, web sitelerindeki yavaşlık ve online-mağaza arası stok/fiyat tutarsızlıklarıydı.</p>
-                    </div>
+                 <div class="data-table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Rakip</th>
+                                <th>Kampanya Teması</th>
+                                <th>Öne Çıkan Mekanizmalar</th>
+                                <th class="problem">Gözlenen Zaaflar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Hepsiburada</strong></td>
+                                <td class="theme">Efsane Kasım</td>
+                                <td class="strategy">Sepette net indirim, banka kartlarına ek taksit/indirim, "hero" ürün odaklı trafik.</td>
+                                <td class="problem">En yoğun kargo gecikmesi ve müşteri hizmetleri şikayetleri. Sahte indirim algısı.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Trendyol</strong></td>
+                                <td class="theme">Süper İndirim Günleri</td>
+                                <td class="strategy">Agresif kupon kodları, canlı yayın indirimleri, influencer işbirlikleri.</td>
+                                <td class="problem">Sistemsel yavaşlamalar, anlık stok tükenme sorunları, karmaşık kupon mekanikleri.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Amazon TR</strong></td>
+                                <td class="theme">Gülümseten Kasım</td>
+                                <td class="strategy">Prime üyeliği merkezli: Erken erişim, özel indirimler, hızlı teslimat vaadi.</td>
+                                <td class="problem">Rakiplere göre daha dar ürün çeşitliliği ve sınırlı stoklar.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>MediaMarkt</strong></td>
+                                <td class="theme">Şahane Cuma</td>
+                                <td class="strategy">"Kulüp" üyelerine özel fiyatlar, mağazadan teslimat (omnichannel) gücü.</td>
+                                <td class="problem">Web sitesinde yavaşlık, online-mağaza stok/fiyat tutarsızlıkları.</td>
+                            </tr>
+                             <tr>
+                                <td><strong>Teknosa</strong></td>
+                                <td class="theme">Tekno Cuma</td>
+                                <td class="strategy">Kuveyt Türk ile faizsiz finansman, "TeknoClub" sadakat programı.</td>
+                                <td class="problem">Ödeme ekranında yaşanan fiyat hataları, sınırlı kampanya çeşitliliği.</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </section>
 
@@ -425,7 +480,7 @@
                 </div>
                 <div class="grid-2">
                     <div class="card">
-                        <h4>En Çok Konuşulan Şikayet Konuları</h4>
+                        <h4>En Çok Konuşulan Şikayet Konuları (Mention Sayısı)</h4>
                         <div class="chart-container">
                              <canvas id="sikayetKonulariChart"></canvas>
                         </div>
@@ -434,21 +489,21 @@
                         <div class="risk-note">
                              <div class="note-icon"><i class="fas fa-exclamation-triangle"></i></div>
                              <div class="note-content">
-                                <p><strong>Kritik Risk: Sahte İndirim Algısı!</strong><br>"Kasım indirimleri yine sahte! Fiyatlar önce şişiriliyor sonra indirim yapılıyor." - X (Twitter) kullanıcısı. Bu algı, markaların itibarını en çok zedeleyen unsur oldu.</p>
+                                 <p><strong>Kritik Risk: Sahte İndirim Algısı!</strong><br>"Kasım indirimleri yine sahte! Fiyatlar önce şişiriliyor sonra indirim yapılıyor." - X (Twitter) kullanıcısı. Bu algı, markaların itibarını en çok zedeleyen unsur oldu.</p>
                              </div>
-                        </div>
-                         <div class="risk-note">
+                         </div>
+                          <div class="risk-note">
                              <div class="note-icon"><i class="fas fa-shipping-fast"></i></div>
                              <div class="note-content">
                                  <p><strong>Operasyonel Kriz: Kargo Gecikmeleri</strong><br>"Efsane Kasım siparişim hâlâ gelmedi, kargo gecikmesi can sıkıyor. Bir daha asla!" - Şikayetvar kullanıcısı. Teslimat sorunları, müşteri kaybı için bir numaralı neden.</p>
                              </div>
-                         </div>
-                         <div class="tip-note">
+                          </div>
+                          <div class="tip-note">
                              <div class="note-icon"><i class="fas fa-robot"></i></div>
                              <div class="note-content">
                                  <p><strong>Fırsat Sinyali: Ürün Memnuniyeti</strong><br>"Robot süpürgeyi Efsane Kasım’da aldım, evi tertemiz yapıyor! Verdiğim her kuruşa değdi." - Instagram kullanıcısı. Doğru ürünü doğru fiyata alan tüketiciler, markanın en iyi elçileri oluyor.</p>
                              </div>
-                         </div>
+                          </div>
                     </div>
                 </div>
             </section>
@@ -469,6 +524,7 @@
                             <tr>
                                 <th>Çok Satan Ürünler</th>
                                 <th>Öne Çıkan Rakip</th>
+                                <th>Gerçek İndirim Oranı</th>
                                 <th>Kampanya Mekaniği</th>
                             </tr>
                         </thead>
@@ -476,22 +532,26 @@
                             <tr>
                                 <td><strong>Apple iPhone 15 128GB</strong></td>
                                 <td>Hepsiburada</td>
-                                <td class="strategy">Sepette ~%10 indirim + Yapı Kredi ile ek taksit</td>
+                                <td>~10%</td>
+                                <td class="strategy">Sepette indirim + Yapı Kredi ile ek taksit/indirim</td>
                             </tr>
                              <tr>
                                 <td><strong>Samsung Galaxy A54 5G</strong></td>
                                 <td>Trendyol</td>
-                                <td class="strategy">~%20 net indirim + Sepette ek kuponlar</td>
+                                <td>~20%</td>
+                                <td class="strategy">Net indirim + Sepette ek kuponlar</td>
                             </tr>
                             <tr>
                                 <td><strong>Anker PowerCore Powerbank</strong></td>
                                 <td>Amazon TR</td>
-                                <td class="strategy">~%30 Prime özel indirimi</td>
+                                <td>~30%</td>
+                                <td class="strategy">Prime özel indirimi + Kupon</td>
                             </tr>
                              <tr>
                                 <td><strong>JBL Tune 510BT Kulaklık</strong></td>
                                 <td>MediaMarkt</td>
-                                <td class="strategy">~%40'a varan net indirim + Kulüp üyeliği</td>
+                                 <td>~40%</td>
+                                <td class="strategy">Net indirim + Kulüp üyeliği</td>
                             </tr>
                         </tbody>
                     </table>
@@ -519,6 +579,7 @@
                             <tr>
                                 <th>Çok Satan Ürünler</th>
                                 <th>Öne Çıkan Rakip</th>
+                                 <th>Gerçek İndirim Oranı</th>
                                 <th>Kampanya Mekaniği</th>
                             </tr>
                         </thead>
@@ -526,17 +587,20 @@
                             <tr>
                                 <td><strong>Monster Tulpar T7 (RTX 4060)</strong></td>
                                 <td>Hepsiburada</td>
-                                <td class="strategy">~%15 indirim + Sepette 2000 TL ek indirim</td>
+                                <td>~15%</td>
+                                <td class="strategy">Net indirim + Sepette 2000 TL ek indirim</td>
                             </tr>
                              <tr>
                                 <td><strong>Apple iPad 9. Nesil 64GB</strong></td>
                                 <td>Trendyol</td>
-                                <td class="strategy">~%12 indirim + Kupon</td>
+                                <td>~12%</td>
+                                <td class="strategy">Net indirim + Kupon</td>
                             </tr>
-                             <tr>
+                            <tr>
                                 <td><strong>Samsung Galaxy Tab S9 FE</strong></td>
                                 <td>Vatan Bilgisayar</td>
-                                <td class="strategy">~%18 indirim + 9 aya varan vade farksız taksit</td>
+                                <td>~18%</td>
+                                <td class="strategy">Net indirim + 9 aya varan vade farksız taksit</td>
                             </tr>
                         </tbody>
                     </table>
@@ -558,6 +622,7 @@
                             <tr>
                                 <th>Çok Satan Ürünler</th>
                                 <th>Öne Çıkan Rakip</th>
+                                <th>Gerçek İndirim Oranı</th>
                                 <th>Kampanya Mekaniği</th>
                             </tr>
                         </thead>
@@ -565,17 +630,20 @@
                             <tr>
                                 <td><strong>Roborock S8 Pro Ultra</strong></td>
                                 <td>Hepsiburada</td>
-                                <td class="strategy">~%25 net indirim + Sepette ek 1000 TL indirim</td>
+                                <td>~25%</td>
+                                <td class="strategy">Net indirim + Sepette ek 1000 TL indirim</td>
                             </tr>
                              <tr>
                                 <td><strong>Dyson V15 Detect Absolute</strong></td>
                                 <td>Trendyol</td>
+                                 <td>~15%</td>
                                 <td class="strategy">Sınırlı Stok, Flaş İndirimler</td>
                             </tr>
-                             <tr>
+                            <tr>
                                 <td><strong>Philips Airfryer XXL</strong></td>
                                 <td>Amazon TR</td>
-                                <td class="strategy">~%30 Prime Özel Fiyat + Kupon</td>
+                                <td>~30%</td>
+                                <td class="strategy">Prime Özel Fiyat + Kupon</td>
                             </tr>
                         </tbody>
                     </table>
@@ -603,6 +671,7 @@
                             <tr>
                                 <th>Çok Satan Ürünler</th>
                                 <th>Öne Çıkan Rakip</th>
+                                 <th>Gerçek İndirim Oranı</th>
                                 <th>Kampanya Mekaniği</th>
                             </tr>
                         </thead>
@@ -610,17 +679,20 @@
                             <tr>
                                 <td><strong>Samsung 65" QN90C Neo QLED</strong></td>
                                 <td>MediaMarkt</td>
-                                <td class="strategy">~%20 İndirim + Vade Farksız Taksit</td>
+                                <td>~20%</td>
+                                <td class="strategy">Net İndirim + Vade Farksız Taksit</td>
                             </tr>
                              <tr>
                                 <td><strong>LG 55" C3 OLED Evo</strong></td>
                                 <td>Vatan Bilgisayar</td>
+                                <td>~18%</td>
                                 <td class="strategy">Net Fiyat İndirimi + Mağazada Ekstra İndirim</td>
                             </tr>
-                             <tr>
+                            <tr>
                                 <td><strong>JBL Bar 5.1 Soundbar</strong></td>
                                 <td>Amazon TR</td>
-                                <td class="strategy">~%25 Prime Özel Fiyat</td>
+                                <td>~25%</td>
+                                <td class="strategy">Prime Özel Fiyat</td>
                             </tr>
                         </tbody>
                     </table>
@@ -648,6 +720,7 @@
                             <tr>
                                 <th>Çok Satan Ürünler</th>
                                 <th>Öne Çıkan Rakip</th>
+                                <th>Gerçek İndirim Oranı</th>
                                 <th>Kampanya Mekaniği</th>
                             </tr>
                         </thead>
@@ -655,17 +728,20 @@
                             <tr>
                                 <td><strong>Dyson Airwrap Multi-styler</strong></td>
                                 <td>Hepsiburada/Trendyol</td>
+                                <td>~10%</td>
                                 <td class="strategy">Stoklarla Sınırlı Flaş İndirimler + Banka Puanı</td>
                             </tr>
                              <tr>
                                 <td><strong>Philips Lumea Prestige IPL</strong></td>
                                 <td>Amazon TR</td>
-                                <td class="strategy">~%30 Prime Özel İndirim + Kupon</td>
+                                <td>~30%</td>
+                                <td class="strategy">Prime Özel İndirim + Kupon</td>
                             </tr>
-                             <tr>
+                            <tr>
                                 <td><strong>Braun Series 9 Pro Tıraş Makinesi</strong></td>
                                 <td>MediaMarkt</td>
-                                <td class="strategy">~%25 Net İndirim</td>
+                                <td>~25%</td>
+                                <td class="strategy">Net İndirim</td>
                             </tr>
                         </tbody>
                     </table>
@@ -693,6 +769,7 @@
                             <tr>
                                 <th>Çok Satan Ürünler</th>
                                 <th>Öne Çıkan Rakip</th>
+                                <th>Gerçek İndirim Oranı</th>
                                 <th>Kampanya Mekaniği</th>
                             </tr>
                         </thead>
@@ -700,17 +777,20 @@
                             <tr>
                                 <td><strong>Stanley Termos 1.9L</strong></td>
                                 <td>n11/Hepsiburada</td>
-                                <td class="strategy">~%40'a Varan İndirimler</td>
+                                <td>~40%</td>
+                                <td class="strategy">Net İndirimler</td>
                             </tr>
                              <tr>
                                 <td><strong>Karaca BioGranit Tencere Seti</strong></td>
                                 <td>Trendyol</td>
-                                <td class="strategy">~%50 Net İndirim + Kuponlar</td>
+                                <td>~50%</td>
+                                <td class="strategy">Net İndirim + Kuponlar</td>
                             </tr>
-                             <tr>
+                            <tr>
                                 <td><strong>Philips Hue Akıllı Ampul Seti</strong></td>
                                 <td>Amazon TR</td>
-                                <td class="strategy">~%25 Prime Özel Fiyat</td>
+                                <td>~25%</td>
+                                <td class="strategy">Prime Özel Fiyat</td>
                             </tr>
                         </tbody>
                     </table>
@@ -732,6 +812,7 @@
                             <tr>
                                 <th>Çok Satan Ürünler</th>
                                 <th>Öne Çıkan Rakip</th>
+                                <th>Gerçek İndirim Oranı</th>
                                 <th>Kampanya Mekaniği</th>
                             </tr>
                         </thead>
@@ -739,16 +820,19 @@
                             <tr>
                                 <td><strong>Sony PlayStation 5 + EA FC 25 Bundle</strong></td>
                                 <td>Hepsiburada/MediaMarkt</td>
+                                <td>~10-15%</td>
                                 <td class="strategy">Bundle İndirimi + Taksit Seçenekleri</td>
                             </tr>
                              <tr>
                                 <td><strong>Logitech G502 Hero Oyuncu Mouse</strong></td>
                                 <td>Amazon TR</td>
-                                <td class="strategy">~%40 Prime Özel Fiyat</td>
+                                <td>~40%</td>
+                                <td class="strategy">Prime Özel Fiyat</td>
                             </tr>
-                             <tr>
+                            <tr>
                                 <td><strong>Nintendo Switch OLED</strong></td>
                                 <td>Trendyol</td>
+                                <td>~10%</td>
                                 <td class="strategy">Sınırlı Stok, Kuponla Destekli Fiyat</td>
                             </tr>
                         </tbody>
@@ -808,11 +892,11 @@
                  <div class="card">
                     <h3>2025 İçin Stratejik Eylem Planı</h3>
                     <ul>
-                        <li><strong>"Sözümüz Söz: Zamanında Teslimat" Kampanyası:</strong> Lojistik gücünü öne çıkaran, gecikme durumunda telafi mekanizmaları sunan bir güven iletişimi yapılmalı.</li>
-                        <li><strong>"Gerçek İndirim" Garantisi:</strong> Kampanya öncesi fiyatları şeffaf bir şekilde gösteren, fiyat geçmişi grafikleri sunan bir yapı kurularak "sahte indirim" algısı kırılmalı.</li>
+                        <li><strong>"Sözümüz Söz: Zamanında Teslimat" Kampanyası:</strong> Lojistik gücünü öne çıkaran, gecikme durumunda telafi mekanizmaları (örn: kupon) sunan bir güven iletişimi yapılmalı.</li>
+                        <li><strong>"Gerçek İndirim" Garantisi & Şeffaflık Aracı:</strong> Kampanya öncesi fiyatları şeffaf bir şekilde gösteren, fiyat geçmişi grafikleri sunan bir yapı kurularak "sahte indirim" algısı kırılmalı.</li>
                         <li><strong>"Akıllı Yaşam Paketleri" Kurgulamak:</strong> Yüksek talep gören Robot Süpürge, Akıllı Ampul, Airfryer gibi ürünleri içeren özel bundle teklifler hazırlanmalı.</li>
-                        <li><strong>Kişiselleştirilmiş Teklifler:</strong> Turkcell data'sı kullanılarak müşterilere "Cihaz Yükseltme", "Aksesuar Tamamlama" gibi özel, sadece onlara yönelik kupon ve indirimler sunularak sadakat artırılmalı.</li>
-                         <li><strong>Finansal Gücü Öne Çıkarmak:</strong> "Faturana Ek 12 Taksit" gibi Turkcell'e özel ödeme kolaylıkları, kampanyanın ana iletişim dili haline getirilmeli.</li>
+                        <li><strong>Kişiselleştirilmiş Teklifler (Veri Odaklı):</strong> Turkcell data'sı kullanılarak müşterilere "Cihaz Yükseltme", "Aksesuar Tamamlama" gibi özel, sadece onlara yönelik kupon ve indirimler sunularak sadakat artırılmalı.</li>
+                         <li><strong>Finansal Gücü Öne Çıkarmak:</strong> "Faturana Ek 12 Taksit" gibi Turkcell'e özel ödeme kolaylıkları, kampanyanın ana iletişim dili haline getirilmeli ve tüm platformlarda vurgulanmalı.</li>
                     </ul>
                 </div>
             </section>
@@ -847,12 +931,29 @@
                             anchor: 'end', 
                             align: 'end', 
                             color: isHorizontal ? '#333' : '#fff',
-                            font: { weight: 'bold' }
+                            font: { weight: 'bold' },
+                            formatter: (value) => new Intl.NumberFormat('tr-TR').format(value), // Format numbers
                         }
                     },
                     scales: {
-                        x: { grid: { display: false } },
-                        y: { grid: { color: '#e0e0e0' }, beginAtZero: true }
+                        x: { 
+                            grid: { display: !isHorizontal },
+                             ticks: {
+                                callback: function(value) {
+                                    return new Intl.NumberFormat('tr-TR', { notation: 'compact', compactDisplay: 'short' }).format(value);
+                                }
+                            }
+                        },
+                        y: { 
+                            grid: { display: isHorizontal, color: '#e0e0e0' }, 
+                            beginAtZero: true,
+                             ticks: {
+                                callback: function(value, index, values) {
+                                     if(isHorizontal) return this.getLabelForValue(value); // Keep labels as is for horizontal
+                                     return new Intl.NumberFormat('tr-TR', { notation: 'compact', compactDisplay: 'short' }).format(value);
+                                }
+                            }
+                        }
                     }
                 }
             };
@@ -920,7 +1021,9 @@
                 const scrollPercent = (window.scrollY / scrollTotal) * 100;
                 progressBar.style.width = scrollPercent > 100 ? '100%' : scrollPercent + '%';
                 let sidebarWidth = 0;
-                if(window.innerWidth > 1200 && !sidebar.classList.contains('active')){
+                if(window.innerWidth > 1200 && sidebar.classList.contains('active')){
+                     // Do nothing, keep progress bar at edge
+                } else if (window.innerWidth > 1200) {
                     sidebarWidth = sidebar.offsetWidth;
                 }
                 progressBar.style.left = `${sidebarWidth}px`;
@@ -944,7 +1047,7 @@
                         }
                     });
                 }
-            }, { rootMargin: "-40% 0px -60% 0px", threshold: 0.5 });
+            }, { rootMargin: "-40% 0px -60% 0px", threshold: 0.1 });
 
             sections.forEach(section => observer.observe(section));
 
@@ -962,16 +1065,17 @@
             
             window.addEventListener('scroll', handleScroll);
             window.addEventListener('resize', handleScroll);
+            handleScroll(); // Initial call
 
             // GRAFİK VERİLERİ VE OLUŞTURMA ÇAĞRILARI
             renderDoughnutChart(
                 'kategoriDagilimiChart', 
-                'Kasım 2024 Talep Dağılımı',
-                ['Elektronik', 'Küçük Ev Aletleri', 'Moda', 'Kozmetik & Bakım', 'Diğer'],
+                'Kasım 2024 Talep Dağılımı (Satış Hacmi)',
+                ['Elektronik', 'Küçük Ev Aletleri', 'Moda', 'Kozmetik & Bakım', 'Ev & Yaşam', 'Diğer'],
                 [{
                     label: 'Talep Oranı',
-                    data: [35, 30, 15, 12, 8],
-                    backgroundColor: ['#e53935', '#37474f', '#f57c00', '#2e7d32', '#616161'],
+                    data: [38, 27, 15, 10, 7, 3],
+                    backgroundColor: ['#e53935', '#37474f', '#f57c00', '#2e7d32', '#616161', '#9e9e9e'],
                     borderColor: '#fff',
                     borderWidth: 2
                 }]
@@ -979,15 +1083,28 @@
 
             renderBarChart(
                 'sikayetKonulariChart',
-                'Sosyal Medya Şikayet Hacmi (Mention Sayısı)',
+                'Sosyal Medya Şikayet Hacmi (Yaklaşık Mention Sayısı)',
                 ['Kargo Gecikmesi', 'Sahte İndirim', 'Stok Sorunları', 'Müşteri Hizmetleri', 'Kalite Problemi'],
                 [{
                     label: 'Şikayet Sayısı',
                     data: [19000, 15000, 8000, 6000, 5000],
-                    backgroundColor: '#d32f2f',
+                    backgroundColor: 'rgba(var(--danger-rgb), 0.8)',
                     borderRadius: 5
                 }],
                 true // Horizontal bar chart
+            );
+            
+            renderBarChart(
+                'motivasyonChart',
+                'Tüketici Satın Alma Motivasyonları',
+                ['İndirim Oranı', 'Marka/Platform Güveni', 'Hızlı Teslimat', 'Taksit/Ödeme Kolaylığı', 'Influencer Tavsiyesi'],
+                [{
+                    label: 'Önem Derecesi (1-10)',
+                    data: [9.2, 8.8, 8.5, 7.9, 6.5],
+                    backgroundColor: 'rgba(var(--primary-rgb), 0.8)',
+                    borderRadius: 5
+                }],
+                false // Vertical bar chart
             );
         });
     </script>
