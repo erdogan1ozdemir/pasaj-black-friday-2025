@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Turkcell Pasaj için 2024 Black Friday/Kasım dönemi pazar, rakip, tüketici ve sosyal medya analizlerini içeren stratejik rapor.">
+    <title>Black Friday Analizleri</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@700;800&family=Rajdhani:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* === 1. TEMA DEĞİŞKENLERİ VE TEMEL STİLLER === */
+        :root {
+            --font-family-headings: 'Montserrat', sans-serif;
+            --font-family-special: 'Rajdhani', sans-serif;
+            --font-family-body: 'Inter', sans-serif;
+            --base-font-size: 16px;
+            --sidebar-width: 320px;
+            --card-radius: 12px;
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        /* === AÇIK TEMA (theme-light) === */
+        .theme-light {
+            --primary: #e53935; /* Kırmızı */
+            --primary-rgb: 229, 57, 53;
+            --secondary: #37474f; /* Koyu Gri */
+            --secondary-rgb: 55, 71, 79;
+            --accent: #f5f5f5;
+            --success: #2e7d32;
+            --danger: #d32f2f;
+            --danger-rgb: 211, 47, 47;
+            --warning: #f57c00;
+            --warning-rgb: 245, 124, 0;
+            --theme-bg: #fafafa;
+            --sidebar-bg: #ffffff;
+            --card-bg: #ffffff;
+            --text-primary: #212121;
+            --text-secondary: #616161;
+            --border-color: #e0e0e0;
+            --focus-outline-color: rgba(var(--primary-rgb), 0.5);
+        }
+
+        html { font-size: var(--base-font-size); }
+
+        body {
+            font-family: var(--font-family-body);
+            background-color: var(--theme-bg);
+            color: var(--text-primary);
+            margin: 0;
+            line-height: 1.7;
+        }
+
+        .container-wrapper { display: flex; }
+
+        /* === 2. YERLEŞİM (LAYOUT) VE GENEL ELEMANLAR === */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--border-color);
+            position: fixed;
+            top: 0; left: 0; height: 100vh;
+            display: flex; flex-direction: column;
+            transition: transform 0.3s ease-in-out;
+            z-index: 1000;
+            box-shadow: var(--shadow-lg);
+        }
+        .main-content {
+            margin-left: var(--sidebar-width);
+            width: calc(100% - var(--sidebar-width));
+            padding: 2rem 4rem;
+        }
+        .section {
+            margin-bottom: 5rem;
+            scroll-margin-top: 2rem;
+        }
+        .progress-bar {
+            height: 4px; background-color: var(--primary);
+            width: 0; position: fixed; top: 0; left: 0; z-index: 9999;
+            transition: width 0.1s;
+        }
+        .back-to-top {
+            position: fixed; bottom: 20px; right: 20px;
+            background-color: var(--secondary); color: white;
+            width: 50px; height: 50px; border-radius: 50%;
+            display: none; justify-content: center; align-items: center;
+            font-size: 24px; box-shadow: var(--shadow-lg);
+            transition: background-color 0.3s, transform 0.3s;
+            z-index: 1000; text-decoration: none;
+        }
+        .back-to-top:hover { background-color: var(--primary); transform: scale(1.1); }
+        .menu-toggle {
+            position: fixed; top: 20px; left: 20px;
+            background: var(--secondary); color: white; border: none;
+            width: 50px; height: 50px; font-size: 24px; border-radius: 50%;
+            cursor: pointer; z-index: 1001; display: none;
+            justify-content: center; align-items: center; box-shadow: var(--shadow-md);
+        }
+
+        /* === 3. BİLEŞEN (COMPONENT) STİLLERİ === */
+
+        /* KENAR ÇUBUĞU VE NAVİGASYON */
+        .sidebar-header { padding: 1.5rem; border-bottom: 1px solid var(--border-color); text-align: center; }
+        .sidebar-header h2 { font-family: var(--font-family-special); font-weight: 700; font-size: 2rem; color: var(--primary); margin:0; }
+        .sidebar-header p { color: var(--text-secondary); margin-top: 5px; font-size: 0.9rem; }
+        .sidebar-nav-container { overflow-y: auto; flex-grow: 1; padding: 1rem 0; }
+        .sidebar-footer { padding: 1.5rem; text-align: center; font-size: 0.8rem; color: var(--text-secondary); border-top: 1px solid var(--border-color); margin-top: auto; }
+        .sidebar-footer p { margin: 4px 0; }
+        .nav-group { margin-bottom: 1.5rem; }
+        .nav-title {
+            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;
+            color: var(--text-secondary); font-weight: 600;
+            padding: 0 1.5rem 0.5rem;
+        }
+        .nav-item {
+            display: flex; align-items: center; padding: 0.8rem 1.5rem;
+            color: var(--text-secondary); text-decoration: none; font-size: 0.95rem;
+            border-left: 4px solid transparent; transition: all 0.2s ease;
+            margin: 0.2rem 0;
+        }
+        .nav-item:hover { background-color: rgba(var(--primary-rgb), 0.1); color: var(--primary); }
+        .nav-item.active {
+            background-color: rgba(var(--primary-rgb), 0.2);
+            color: var(--primary); font-weight: 700;
+            border-left-color: var(--primary);
+        }
+        .nav-item i { width: 24px; text-align: center; margin-right: 0.75rem; font-size: 1rem; }
+        .nav-badge {
+            margin-left: auto; font-size: 0.7rem; background: var(--secondary); color: white;
+            border-radius: 9px; padding: 3px 7px; font-weight: 700;
+        }
+        .nav-item.active .nav-badge { background: var(--primary); }
+
+
+        /* RAPOR BAŞLIKLARI */
+        .report-header { text-align: center; padding: 2rem; margin-bottom: 3rem; }
+        .report-header h1 {
+            font-family: var(--font-family-headings); font-weight: 800; font-size: 2.75rem;
+            color: var(--text-primary); line-height: 1.2; text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .title-gradient-line {
+            width: 110px; height: 5px; background: var(--primary);
+            margin: 1rem auto 0; border-radius: 2.5px;
+        }
+        .report-header .subtitle { color: var(--text-secondary); margin-top: 1rem; font-size: 1.1rem; }
+
+        .section-header { display: flex; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color); }
+        .section-icon {
+            width: 45px; height: 45px; background: var(--primary); border-radius: 9px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px; margin-right: 16px; color: white;
+        }
+        .section-title { font-family: var(--font-family-headings); font-size: 2rem; font-weight: 700; color: var(--text-primary); margin: 0;}
+
+        /* KARTLAR */
+        .card {
+            background-color: var(--card-bg); padding: 1.5rem 2rem; border-radius: var(--card-radius);
+            border: 1px solid var(--border-color); margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-md); transition: all 0.3s ease-in-out;
+        }
+        .card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+        .card h3 { font-family: var(--font-family-headings); font-size: 1.5rem; color: var(--primary); margin-bottom: 1rem; margin-top: 0; }
+        .card h4 { font-family: var(--font-family-headings); font-size: 1.25rem; color: var(--text-primary); margin-bottom: 1rem; margin-top: 0; }
+        .card p, .card ul li, .card ol li { color: var(--text-secondary); line-height: 1.7; font-size: 0.95rem; }
+        .card ul, .card ol { list-style-type: none; padding-left: 0; margin-top: 1rem; }
+        .card ul li { padding-left: 1.75rem; position: relative; margin-bottom: 0.75rem; }
+        .card ul li::before {
+            content: '\f058'; font-family: "Font Awesome 6 Free"; font-weight: 900;
+            color: var(--success); position: absolute; left: 0; top: 5px;
+        }
+        .card ol { list-style-type: decimal; padding-left: 1.5rem; }
+        .chart-container {
+            position: relative;
+            height: 400px;
+            width: 100%;
+        }
+
+        /* İSTATİSTİK, SWOT VE GRID YAPILARI */
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1.5rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+        .stat-card {
+            background-color: var(--card-bg); border: 1px solid var(--border-color);
+            border-top: 5px solid var(--primary);
+            border-radius: var(--card-radius); padding: 1.5rem; text-align: center;
+        }
+        .stat-value { font-size: 3rem; font-weight: 800; font-family: var(--font-family-special); color: var(--primary); }
+        .stat-label { font-size: 1rem; color: var(--text-secondary); margin-top: 0.5rem; }
+        .swot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin: 40px 0; }
+        .swot-card {
+            background-color: var(--card-bg); border-radius: var(--card-radius); padding: 2rem;
+            box-shadow: var(--shadow-md); border: 1px solid var(--border-color);
+        }
+        .swot-title {
+            font-family: var(--font-family-headings); font-weight: 700; font-size: 1.6rem;
+            margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1.5px solid var(--border-color);
+            display: flex; align-items: center;
+        }
+        .swot-title i { margin-right: 12px; }
+        .swot-strengths { border-top: 5px solid var(--success); } .swot-strengths .swot-title { color: var(--success); }
+        .swot-weaknesses { border-top: 5px solid var(--danger); } .swot-weaknesses .swot-title { color: var(--danger); }
+        .swot-opportunities { border-top: 5px solid var(--primary); } .swot-opportunities .swot-title { color: var(--primary); }
+        .swot-threats { border-top: 5px solid var(--warning); } .swot-threats .swot-title { color: var(--warning); }
+        .swot-list { list-style-type: none; padding-left: 0; margin-top: 1rem; }
+        .swot-item { margin-bottom: 12px; padding-left: 25px; position: relative; color: var(--text-secondary); font-size: 0.9rem;}
+        .swot-item::before { position: absolute; left: 4px; font-family: "Font Awesome 6 Free"; font-weight: 900; }
+        .swot-strengths .swot-item::before { content: "\f00c"; color: var(--success); }
+        .swot-weaknesses .swot-item::before { content: "\f00d"; color: var(--danger); }
+        .swot-opportunities .swot-item::before { content: "\f0eb"; color: var(--primary); }
+        .swot-threats .swot-item::before { content: "\f071"; color: var(--warning); }
+
+
+        /* BİLGİ NOTLARI */
+        .info-note, .risk-note, .tip-note, .analysis-note {
+            padding: 1.25rem; border-radius: var(--card-radius); margin: 1.5rem 0;
+            display: flex; gap: 1rem; align-items: flex-start;
+            border-left-width: 4px; 
+            border-style: solid;
+        }
+        .info-note { border-left-color: var(--primary); background-color: rgba(var(--primary-rgb), 0.05); }
+        .risk-note { border-left-color: var(--danger); background-color: rgba(211, 47, 47, 0.05); }
+        .tip-note { border-left-color: var(--warning); background-color: rgba(245, 124, 0, 0.05); }
+        .analysis-note { border-left-color: var(--secondary); background-color: rgba(var(--secondary-rgb), 0.05); }
+        .note-icon { font-size: 1.5rem; margin-top: 0.2rem; }
+        .note-content p { margin: 0; }
+        .note-content strong { color: var(--text-primary); }
+
+        /* TABLOLAR */
+        .data-table-wrapper { overflow-x: auto; border-radius: var(--card-radius); box-shadow: var(--shadow-md); border: 1px solid var(--border-color); margin-top: 1.5rem;}
+        .data-table { width: 100%; border-collapse: collapse; margin: 0; }
+        .data-table th, .data-table td { border-bottom: 1px solid var(--border-color); padding: 12px 15px; text-align: left; vertical-align: middle; }
+        .data-table th { font-family: var(--font-family-headings); font-weight: 600; }
+        .data-table thead { background-color: var(--secondary); color: white; }
+        .data-table tbody tr:nth-child(even) { background-color: #f8f9fa; }
+        .data-table tbody tr:hover { background-color: #e9ecef; }
+        .data-table .problem { color: var(--danger); font-weight: 500; }
+        .data-table .theme { color: var(--primary); font-weight: 500; }
+        .data-table .strategy { font-size: 0.85rem; }
+
+        /* RESPONSIVE */
+        @media (max-width: 1200px) {
+            .sidebar { transform: translateX(calc(-1 * var(--sidebar-width))); }
+            .sidebar.active { transform: translateX(0); }
+            .main-content { margin-left: 0; width: 100%; padding: 1.5rem; }
+            .menu-toggle { display: flex; }
+            .progress-bar { left: 0 !important; }
+        }
+        @media (max-width: 768px) {
+            .report-header h1 { font-size: 2rem; }
+            .section-title { font-size: 1.6rem; }
+            .swot-grid, .stat-grid, .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            .main-content { padding: 1rem; }
+        }
+    </style>
+</head>
+<body class="theme-light"> 
+    <div class="progress-bar" id="progressBar"></div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menüyü Aç/Kapat"><i class="fas fa-bars"></i></button>
+    <a href="#top" class="back-to-top" id="backToTop" aria-label="Başa Dön"><i class="fas fa-arrow-up"></i></a>
+
+    <div class="container-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>Turkcell Pasaj</h2>
+                <p>Black Friday 2024 Analizi</p>
+            </div>
+            <div class="sidebar-nav-container">
+                <nav>
+                    <div class="nav-group">
+                        <div class="nav-title">Rapor Akışı</div>
+                        <ul>
+                            <li><a href="#executive-summary" class="nav-item active"><i class="fas fa-rocket"></i><span>Yönetici Özeti</span></a></li>
+                            <li><a href="#market-analysis" class="nav-item"><i class="fas fa-chart-pie"></i><span>Pazar ve Sektör Analizi</span></a></li>
+                            <li><a href="#consumer-behavior" class="nav-item"><i class="fas fa-users"></i><span>Tüketici Davranışları</span></a></li>
+                            <li><a href="#competitor-analysis" class="nav-item"><i class="fas fa-search-dollar"></i><span>Detaylı Rakip Analizi</span></a></li>
+                             <li><a href="#social-media" class="nav-item"><i class="fas fa-bullhorn"></i><span>Sosyal Medya Nabzı</span></a></li>
+                        </ul>
+                    </div>
+                    <div class="nav-group">
+                        <div class="nav-title">Kategori Derinlemesine Analiz</div>
+                        <ul>
+                             <li><a href="#category-electronics" class="nav-item"><i class="fas fa-mobile-alt"></i><span>Cep Telefonu & Aksesuar</span></a></li>
+                             <li><a href="#category-computers" class="nav-item"><i class="fas fa-laptop"></i><span>Bilgisayar & Tablet</span></a></li>
+                             <li><a href="#category-appliances" class="nav-item"><i class="fas fa-robot"></i><span>Elektrikli Ev Aletleri</span></a></li>
+                             <li><a href="#category-tv" class="nav-item"><i class="fas fa-tv"></i><span>TV & Ses Sistemleri</span></a></li>
+                             <li><a href="#category-health" class="nav-item"><i class="fas fa-heartbeat"></i><span>Sağlık & Kişisel Bakım</span></a></li>
+                             <li><a href="#category-home" class="nav-item"><i class="fas fa-couch"></i><span>Ev & Yaşam</span></a></li>
+                             <li><a href="#category-gaming" class="nav-item"><i class="fas fa-gamepad"></i><span>Hobi & Oyun</span></a></li>
+                        </ul>
+                    </div>
+                     <div class="nav-group">
+                        <div class="nav-title">Strateji</div>
+                        <ul>
+                           <li><a href="#swot-analysis" class="nav-item"><i class="fas fa-balance-scale"></i><span>SWOT & Stratejik Öneriler</span><span class="nav-badge">ÖNEMLİ</span></a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <div class="sidebar-footer">
+                <p><strong>Erdoğan Özdemir</strong></p>
+                <p>Sr. Consultant, SEO</p>
+                <p>Inbound Marketing Agency</p>
+            </div>
+        </aside>
+
+        <main class="main-content" id="mainContent">
+            <header class="report-header" id="top">
+                <h1>Black Friday Analizleri</h1>
+                <div class="title-gradient-line"></div>
+                <p class="subtitle">Turkcell Pasaj Kasım Dönemi Pazar, Rakip ve Tüketici İçgörüleri</p>
+            </header>
+            
+            <section id="executive-summary" class="section">
+                <div class="section-header">
+                    <div class="section-icon"><i class="fas fa-rocket"></i></div>
+                    <h2 class="section-title">Yönetici Özeti</h2>
+                </div>
+                <div class="card">
+                    <h3>2024'ten Çıkarımlar, 2025 için Yol Haritası</h3>
+                    <p>2024 Black Friday dönemi, pazarın rekor büyümesine rağmen <strong>lojistik altyapıdaki</strong> sistemsel krizlerle anılacaktır. Tüketiciler için en büyük sorun <strong>teslimat gecikmeleri ve sahte indirim algısı</strong> olmuştur. Bu zafiyetler, Turkcell Pasaj'a operasyonel mükemmelliği ve şeffaflığı bir pazarlama silahı olarak kullanma konusunda eşsiz bir fırsat sunmaktadır. Rakip analizleri, pazar liderlerinin artık sadece ürün satmadığını; müşteriyi kendi ekosistemlerine dahil etme ve sadakat programlarıyla bağlama savaşı verdiğini ortaya koyuyor. 2025'te başarı, bu kaotik ortamda "güvenilir liman" olarak konumlanmaktan geçmektedir.</p>
+                </div>
+            </section>
+
+            <section id="market-analysis" class="section">
+                <div class="section-header">
+                    <div class="section-icon"><i class="fas fa-chart-pie"></i></div>
+                    <h2 class="section-title">Pazar ve Sektör Analizi</h2>
+                </div>
+                <div class="card">
+                    <h3>Kategori Liderleri ve Talep Patlaması</h3>
+                    <p>2024 Kasım ayında tüketiciler ertelenen teknolojik ihtiyaçlarını karşılamaya odaklandı. <strong>Cep telefonları, bilgisayarlar ve televizyonlar</strong> en çok işlem gören ürün grupları olurken, asıl talep patlaması küçük ev aletlerinde yaşandı. Özellikle <strong>robot süpürge</strong> satışları ikiye katlanırken, <strong>kahve makineleri ve halı yıkama makineleri</strong> gibi ürünlerde 10 katı aşan artışlar gözlemlendi. Bu durum, tüketicinin yaşam kalitesini artıran teknolojik ürünlere olan ilgisinin ve bu ürünleri indirim döneminde alma eğiliminin altını çizmektedir.</p>
+                </div>
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>Popüler Ürün Kategorileri Dağılımı</h4>
+                         <div class="chart-container">
+                            <canvas id="kategoriDagilimiChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h4>Öne Çıkan Ürünler</h4>
+                        <ul>
+                            <li><strong>Robot Süpürgeler:</strong> Satışlar geçen yıla göre 2 kat artarak ~49 bin adede ulaştı.</li>
+                            <li><strong>Kahve Makineleri:</strong> Sadece Hepsiburada platformunda 65 bin adet satıldı.</li>
+                            <li><strong>Halı Yıkama Makineleri:</strong> Satışlarda 11 kat artışla 33 bin adede ulaştı.</li>
+                            <li><strong>Cep Telefonları:</strong> Özellikle iPhone 15 ve Samsung'un orta segment modelleri yüksek talep gördü.</li>
+                            <li><strong>Oyun Konsolları:</strong> PlayStation 5 stokları en çok aranan ürünler arasındaydı.</li>
+                        </ul>
+                    </div>
+                </div>
+                 <div class="analysis-note">
+                    <div class="note-icon"><i class="fas fa-lightbulb"></i></div>
+                    <div class="note-content">
+                        <p><strong>Stratejik İçgörü:</strong> Pazarda en büyük boşluk ve tüketici şikayeti <strong>"güvenilir ve hızlı teslimat"</strong> alanında. Lojistik ve operasyonel mükemmellik, 2025 yılında en etkili pazarlama mesajı ve rekabet avantajı olabilir.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="consumer-behavior" class="section">
+                <div class="section-header">
+                    <div class="section-icon"><i class="fas fa-users"></i></div>
+                    <h2 class="section-title">Tüketici Davranışları ve Beklentileri</h2>
+                </div>
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>Fırsat Avcısı vs. Bilinçli Tüketici</h4>
+                        <p>Kasım dönemi, iki ana tüketici profilini ortaya çıkardı. Bir yanda "fırsat avcıları", en düşük fiyatı bulmak için platformlar arası yoğun bir araştırma yaparken; diğer yanda "bilinçli tüketiciler", sahte indirimlerden ve teslimat sorunlarından kaçınmak için <strong>güvenilir satıcılara ve platformlara</strong> yöneldi. Fiyat karşılaştırma sitelerinin (Akakçe, Cimri) trafiği bu dönemde tavan yaparken, sosyal medyadaki "bu fiyata alınır mı?" tartışmaları da yoğunlaştı.</p>
+                    </div>
+                     <div class="card">
+                        <h4>Mobil Öncelikli Alışveriş Deneyimi</h4>
+                        <p>Satın almaların büyük çoğunluğu mobil uygulamalar üzerinden gerçekleşti. Bu durum, kullanıcı dostu, hızlı ve güvenli bir mobil deneyimin ne kadar kritik olduğunu bir kez daha gösterdi. Özellikle anlık bildirimlerle duyurulan "flaş indirimler" ve uygulama içi özel kuponlar, tüketicileri anlık satın almalara yönlendiren en önemli etkenler oldu. Uygulama performansı ve ödeme adımlarının basitliği, sepet terk etme oranlarını doğrudan etkiledi.</p>
+                    </div>
+                </div>
+                 <div class="tip-note">
+                    <div class="note-icon"><i class="fab fa-tiktok"></i></div>
+                    <div class="note-content">
+                        <p><strong>Sosyal Ticaret ve Influencer Etkisi:</strong> Özellikle TikTok ve Instagram'da yapılan "Black Friday Alışverişim" temalı canlı yayınlar ve videolar, ürünlerin popülerliğini belirlemede kilit rol oynadı. Influencer'ların paylaştığı özel indirim kodları, markalar için önemli bir trafik ve satış kaynağı oluşturdu. Tüketiciler, güvendikleri influencer'ların önerilerine göre hareket etme eğilimi gösterdi.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="competitor-analysis" class="section">
+                <div class="section-header">
+                    <div class="section-icon"><i class="fas fa-search-dollar"></i></div>
+                    <h2 class="section-title">Detaylı Rakip Analizi</h2>
+                </div>
+                <div class="card">
+                    <h3>Pazar Oyuncularının Stratejileri ve Zaafları</h3>
+                    <p>Kasım 2024, pazarın büyük oyuncularının tüm kozlarını oynadığı bir satranç oyununa dönüştü. Pazaryerleri hacim ve ekosistem odaklı stratejiler izlerken, teknoloji perakendecileri omnichannel (fiziksel + online) güçlerini ve finansman çözümlerini öne çıkardı. Ancak neredeyse tüm oyuncular, artan talebin yarattığı operasyonel yük altında zorlandı.</p>
+                </div>
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>Hepsiburada: "Efsane Kasım"</h4>
+                        <p>Hacim odaklı bir strateji izledi. "Hero" ürünler (iPhone, Roborock vb.) ile trafik çekti. En büyük gücü, büyük bankalarla yaptığı özel taksit ve ek indirim anlaşmaları oldu. Ancak bu yoğunluk, en çok "kargo gecikmesi" şikayetini de beraberinde getirdi.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Trendyol: "Süper İndirim Günleri"</h4>
+                        <p>Moda ve kozmetikteki gücünü, elektronik kategorisine de agresif kupon ve canlı yayın indirimleri ile taşımaya çalıştı. Influencer işbirlikleri ve koleksiyon bazlı kampanyalarla genç kitleyi hedefledi. En büyük zaafı, sistemsel yavaşlamalar ve stokların hızla tükenmesi oldu.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Amazon TR: "Gülümseten Kasım"</h4>
+                        <p>Stratejisini tamamen <strong>Prime üyeliği</strong> üzerine kurdu. Prime üyelerine özel erken erişim, ek indirimler ve hızlı teslimat vaadiyle rakiplerinden ayrıştı. "Bekleme Listesi" gibi özelliklerle stok yönetimini daha verimli hale getirmeye çalıştı. Zayıf yönü, rakiplere kıyasla daha sınırlı ürün çeşitliliği ve stokları oldu.</p>
+                    </div>
+                    <div class="card">
+                        <h4>MediaMarkt & Teknosa</h4>
+                        <p>Omnichannel güçlerini kullandılar. "Kulüp" üyelik programları ile sadık müşterilere özel fiyatlar sundular. Özellikle Teknosa'nın Kuveyt Türk ile yaptığı faizsiz finansman kampanyası dikkat çekti. Gözlenen en büyük problem, web sitelerindeki yavaşlık ve online-mağaza arası stok/fiyat tutarsızlıklarıydı.</p>
+                    </div>
+                </div>
+            </section>
+
+             <section id="social-media" class="section">
+                <div class="section-header">
+                    <div class="section-icon"><i class="fas fa-bullhorn"></i></div>
+                    <h2 class="section-title">Sosyal Medya Nabzı</h2>
+                </div>
+                 <div class="card">
+                    <h3>Tüketici Sesleri: Şikayetler ve Beklentiler</h3>
+                    <p>Sosyal medya ve şikayet platformları, 2024 Kasım döneminin bir "şikayet fırtınasına" dönüştüğünü net bir şekilde gösteriyor. On binlerce tüketici, özellikle iki ana başlıkta hayal kırıklığını dile getirdi: <strong>Kargo gecikmeleri</strong> ve <strong>sahte indirimler</strong>. Fiyatların kampanya öncesi yükseltilip sonra indirilmesi algısı, tüketici güvenini derinden sarstı. Bu durum, Ticaret Bakanlığı'nın rekor cezalara başvurmasına neden oldu. Olumlu konuşmalar ise genellikle belirli ürün gruplarındaki (örn: robot süpürgeler) memnuniyet üzerine yoğunlaştı.</p>
+                </div>
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>En Çok Konuşulan Şikayet Konuları</h4>
+                        <div class="chart-container">
+                             <canvas id="sikayetKonulariChart"></canvas>
+                        </div>
+                    </div>
+                     <div class="card">
+                        <div class="risk-note">
+                             <div class="note-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                             <div class="note-content">
+                                <p><strong>Kritik Risk: Sahte İndirim Algısı!</strong><br>"Kasım indirimleri yine sahte! Fiyatlar önce şişiriliyor sonra indirim yapılıyor." - X (Twitter) kullanıcısı. Bu algı, markaların itibarını en çok zedeleyen unsur oldu.</p>
+                             </div>
+                        </div>
+                         <div class="risk-note">
+                             <div class="note-icon"><i class="fas fa-shipping-fast"></i></div>
+                             <div class="note-content">
+                                 <p><strong>Operasyonel Kriz: Kargo Gecikmeleri</strong><br>"Efsane Kasım siparişim hâlâ gelmedi, kargo gecikmesi can sıkıyor. Bir daha asla!" - Şikayetvar kullanıcısı. Teslimat sorunları, müşteri kaybı için bir numaralı neden.</p>
+                             </div>
+                         </div>
+                         <div class="tip-note">
+                             <div class="note-icon"><i class="fas fa-robot"></i></div>
+                             <div class="note-content">
+                                 <p><strong>Fırsat Sinyali: Ürün Memnuniyeti</strong><br>"Robot süpürgeyi Efsane Kasım’da aldım, evi tertemiz yapıyor! Verdiğim her kuruşa değdi." - Instagram kullanıcısı. Doğru ürünü doğru fiyata alan tüketiciler, markanın en iyi elçileri oluyor.</p>
+                             </div>
+                         </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- KATEGORİ ANALİZLERİ -->
+            <section id="category-electronics" class="section">
+                <div class="section-header">
+                    <div class="section-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <h2 class="section-title">Kategori Analizi: Cep Telefonu & Aksesuar</h2>
+                </div>
+                <div class="card">
+                    <h4>Amiral Gemileri ve Fiyat/Performans Rekabeti</h4>
+                    <p>Cep telefonu kategorisi, Black Friday'in en hareketli alanı oldu. Tüketiciler, <strong>Apple iPhone 15</strong> gibi yüksek segmentli ürünlerde küçük indirimleri bile kovalarken, <strong>Samsung Galaxy A54</strong> gibi orta segmentin güçlü oyuncularında ise %20'leri aşan fırsatlar aradı. Rakipler, bu kategorideki indirimleri genellikle "sepette ek indirim" ve "banka puanı/taksit" gibi çok katmanlı mekaniklerle sundu. Aksesuar kategorisinde ise <strong>TWS kulaklıklar ve powerbank'ler</strong> en çok satan ürünler oldu.</p>
+                </div>
+                <div class="data-table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Çok Satan Ürünler</th>
+                                <th>Öne Çıkan Rakip</th>
+                                <th>Kampanya Mekaniği</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Apple iPhone 15 128GB</strong></td>
+                                <td>Hepsiburada</td>
+                                <td class="strategy">Sepette ~%10 indirim + Yapı Kredi ile ek taksit</td>
+                            </tr>
+                             <tr>
+                                <td><strong>Samsung Galaxy A54 5G</strong></td>
+                                <td>Trendyol</td>
+                                <td class="strategy">~%20 net indirim + Sepette ek kuponlar</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Anker PowerCore Powerbank</strong></td>
+                                <td>Amazon TR</td>
+                                <td class="strategy">~%30 Prime özel indirimi</td>
+                            </tr>
+                             <tr>
+                                <td><strong>JBL Tune 510BT Kulaklık</strong></td>
+                                <td>MediaMarkt</td>
+                                <td class="strategy">~%40'a varan net indirim + Kulüp üyeliği</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="analysis-note">
+                    <div class="note-icon"><i class="fas fa-lightbulb"></i></div>
+                    <div class="note-content">
+                        <p><strong>Stratejik İçgörü:</strong> Amiral gemisi telefonlarda fiyatla rekabet etmek zor. Fırsat, <strong>orijinal aksesuar bundle paketleri</strong> (örn: iPhone 15 + orijinal şarj aleti + kılıf) ve Turkcell'in <strong>faturaya ek taksitlendirme</strong> gücünü öne çıkarmakta yatıyor.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="category-computers" class="section">
+                <div class="section-header">
+                    <div class="section-icon"><i class="fas fa-laptop"></i></div>
+                    <h2 class="section-title">Kategori Analizi: Bilgisayar & Tablet</h2>
+                </div>
+                 <div class="card">
+                    <h4>Oyun Bilgisayarları ve Hibrit Cihazlar Öne Çıkıyor</h4>
+                    <p>Bilgisayar kategorisinde talep, ağırlıklı olarak <strong>oyun (gaming) bilgisayarları</strong> üzerine yoğunlaştı. Özellikle <strong>Monster, HP Victus ve Asus TUF</strong> serileri, %25'e varan indirimlerle tüketicilerin radarındaydı. Tablet kategorisinde ise <strong>Apple iPad 9. Nesil</strong> giriş seviyesi için en popüler seçenek olmaya devam ederken, <strong>Samsung Galaxy Tab S9 FE</strong> gibi Fiyat/Performans ürünleri de büyük ilgi gördü. Rakipler, bu kategoride genellikle yüksek sepet tutarı nedeniyle "vade farksız taksit" seçeneklerini pazarlama iletişiminin merkezine koydu.</p>
+                </div>
+                <div class="data-table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Çok Satan Ürünler</th>
+                                <th>Öne Çıkan Rakip</th>
+                                <th>Kampanya Mekaniği</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Monster Tulpar T7 (RTX 4060)</strong></td>
+                                <td>Hepsiburada</td>
+                                <td class="strategy">~%15 indirim + Sepette 2000 TL ek indirim</td>
+                            </tr>
+                             <tr>
+                                <td><strong>Apple iPad 9. Nesil 64GB</strong></td>
+                                <td>Trendyol</td>
+                                <td class="strategy">~%12 indirim + Kupon</td>
+                            </tr>
+                             <tr>
+                                <td><strong>Samsung Galaxy Tab S9 FE</strong></td>
+                                <td>Vatan Bilgisayar</td>
+                                <td class="strategy">~%18 indirim + 9 aya varan vade farksız taksit</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="category-appliances" class="section">
+                <div class="section-header">
+                    <div class="section-icon"><i class="fas fa-robot"></i></div>
+                    <h2 class="section-title">Kategori Analizi: Elektrikli Ev Aletleri</h2>
+                </div>
+                 <div class="card">
+                    <h4>"Akıllı Yaşam" Ürünlerinde Talep Patlaması</h4>
+                    <p>2024 Black Friday'in yıldızı şüphesiz elektrikli ev aletleri, özellikle de akıllı yaşamı kolaylaştıran ürünler oldu. <strong>Roborock ve Xiaomi markalı robot süpürgeler</strong>, satış adetlerini ikiye katlayarak listenin başında yer aldı. <strong>Philips Airfryer</strong> ve benzeri sıcak hava fritözleri, mutfakların vazgeçilmezi olduğunu bir kez daha kanıtlarken, <strong>Dyson V15 gibi kablosuz dikey süpürgeler</strong> de yüksek fiyatlarına rağmen büyük ilgi gördü. Bu kategoride başarı, %30'u aşan "gerçek indirim" oranları ve stok devamlılığı ile geldi.</p>
+                </div>
+                <div class="data-table-wrapper">
+                     <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Çok Satan Ürünler</th>
+                                <th>Öne Çıkan Rakip</th>
+                                <th>Kampanya Mekaniği</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Roborock S8 Pro Ultra</strong></td>
+                                <td>Hepsiburada</td>
+                                <td class="strategy">~%25 net indirim + Sepette ek 1000 TL indirim</td>
+                            </tr>
+                             <tr>
+                                <td><strong>Dyson V15 Detect Absolute</strong></td>
+                                <td>Trendyol</td>
+                                <td class="strategy">Sınırlı Stok, Flaş İndirimler</td>
+                            </tr>
+                             <tr>
+                                <td><strong>Philips Airfryer XXL</strong></td>
+                                <td>Amazon TR</td>
+                                <td class="strategy">~%30 Prime Özel Fiyat + Kupon</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                  <div class="tip-note">
+                    <div class="note-icon"><i class="fas fa-coffee"></i></div>
+                    <div class="note-content">
+                        <p><strong>Şaşırtıcı Yükseliş: Kahve ve Halı Yıkama Makineleri</strong><br>Hepsiburada'da 65 bin adet kahve makinesi, 33 bin adet ise halı yıkama makinesi satıldı. Bu rakamlar, tüketicinin ev konforuna ve yaşam kalitesine yatırım yapma eğiliminin ne kadar güçlü olduğunu gösteriyor.</p>
+                    </div>
+                </div>
+            </section>
+
+             <section id="category-tv" class="section">
+                <div class="section-header">
+                    <div class="section-icon"><i class="fas fa-tv"></i></div>
+                    <h2 class="section-title">Kategori Analizi: TV & Ses Sistemleri</h2>
+                </div>
+                 <div class="card">
+                    <h4>Büyük Ekran ve Akıllı TV'ler Gözde</h4>
+                    <p>Televizyon kategorisinde, tüketiciler artık daha büyük ekranlara yöneliyor. <strong>65 inç ve üzeri</strong> modellerde talep artışı gözlendi. Teknoloji tarafında ise <strong>OLED ve QLED</strong> arasındaki rekabet kızıştı. <strong>Samsung S90C (QLED)</strong> ve <strong>LG C3 (OLED)</strong> gibi modeller, oyun ve sinema meraklıları tarafından en çok aranan TV'ler oldu. Ses sistemlerinde ise <strong>soundbar'lar</strong>, TV satışlarına paralel olarak en çok talep gören tamamlayıcı ürünlerdi. JBL ve Samsung markaları bu alanda öne çıktı.</p>
+                </div>
+                 <div class="data-table-wrapper">
+                     <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Çok Satan Ürünler</th>
+                                <th>Öne Çıkan Rakip</th>
+                                <th>Kampanya Mekaniği</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Samsung 65" QN90C Neo QLED</strong></td>
+                                <td>MediaMarkt</td>
+                                <td class="strategy">~%20 İndirim + Vade Farksız Taksit</td>
+                            </tr>
+                             <tr>
+                                <td><strong>LG 55" C3 OLED Evo</strong></td>
+                                <td>Vatan Bilgisayar</td>
+                                <td class="strategy">Net Fiyat İndirimi + Mağazada Ekstra İndirim</td>
+                            </tr>
+                             <tr>
+                                <td><strong>JBL Bar 5.1 Soundbar</strong></td>
+                                <td>Amazon TR</td>
+                                <td class="strategy">~%25 Prime Özel Fiyat</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="analysis-note">
+                    <div class="note-icon"><i class="fas fa-lightbulb"></i></div>
+                    <div class="note-content">
+                        <p><strong>Stratejik İçgörü:</strong> TV satışları, "bundle" fırsatları için büyük bir potansiyel taşıyor. "TV + Soundbar" veya "TV + Oyun Konsolu" gibi paketler, sepet ortalamasını artırmak ve müşteriye komple bir çözüm sunmak için ideal.</p>
+                    </div>
+                </div>
+            </section>
+            
+             <section id="category-health" class="section">
+                <div class="section-header">
+                    <div class="section-icon"><i class="fas fa-heartbeat"></i></div>
+                    <h2 class="section-title">Kategori Analizi: Sağlık & Kişisel Bakım</h2>
+                </div>
+                 <div class="card">
+                    <h4>Teknoloji Destekli Kişisel Bakım Cihazları</h4>
+                    <p>Kişisel bakım kategorisi, teknoloji ile birleşerek büyük bir ivme kazandı. Özellikle <strong>Dyson Airwrap</strong> ve benzeri saç şekillendiriciler, yüksek fiyat etiketlerine rağmen en çok arzulanan ürünler listesinin başında yer aldı. <strong>Philips Lumea</strong> gibi lazer epilasyon cihazları ve <strong>Braun, Philips</strong> gibi markaların erkek bakım kitleri de yoğun talep gördü. Tüketiciler bu kategoride, uzun vadeli bir yatırım olarak gördükleri kaliteli ve teknolojik ürünler için bütçe ayırmaya istekliydi.</p>
+                </div>
+                <div class="data-table-wrapper">
+                     <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Çok Satan Ürünler</th>
+                                <th>Öne Çıkan Rakip</th>
+                                <th>Kampanya Mekaniği</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Dyson Airwrap Multi-styler</strong></td>
+                                <td>Hepsiburada/Trendyol</td>
+                                <td class="strategy">Stoklarla Sınırlı Flaş İndirimler + Banka Puanı</td>
+                            </tr>
+                             <tr>
+                                <td><strong>Philips Lumea Prestige IPL</strong></td>
+                                <td>Amazon TR</td>
+                                <td class="strategy">~%30 Prime Özel İndirim + Kupon</td>
+                            </tr>
+                             <tr>
+                                <td><strong>Braun Series 9 Pro Tıraş Makinesi</strong></td>
+                                <td>MediaMarkt</td>
+                                <td class="strategy">~%25 Net İndirim</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                 <div class="tip-note">
+                    <div class="note-icon"><i class="fas fa-gift"></i></div>
+                    <div class="note-content">
+                        <p><strong>Hediye Potansiyeli:</strong> Bu kategori, özellikle yaklaşan yılbaşı dönemi için hediye alma potansiyeli en yüksek alanlardan biri. Kasım indirimleri, tüketiciler için bir "hediye stoğu" yapma fırsatı olarak da değerlendirildi.</p>
+                    </div>
+                </div>
+            </section>
+            
+             <section id="category-home" class="section">
+                <div class="section-header">
+                    <div class="section-icon"><i class="fas fa-couch"></i></div>
+                    <h2 class="section-title">Kategori Analizi: Ev & Yaşam</h2>
+                </div>
+                 <div class="card">
+                    <h4>"Yuva" Kavramına Yatırım Devam Ediyor</h4>
+                    <p>Pandemi ile başlayan "eve yatırım" trendi, Black Friday döneminde de devam etti. Mutfak eşyalarında <strong>Karaca, Emsan ve Tefal</strong> gibi markaların tencere setleri ve küçük aletleri kapışıldı. Outdoor ve kamp meraklıları için <strong>Stanley termoslar</strong> fenomen olmaya devam etti. Akıllı ev kategorisinde ise <strong>Philips Hue</strong> gibi akıllı aydınlatma ürünleri ve akıllı prizler ilgi gördü. Bu kategorideki başarı, genellikle estetik ve fonksiyonelliği birleştiren ürünlerde yoğunlaştı.</p>
+                </div>
+                <div class="data-table-wrapper">
+                     <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Çok Satan Ürünler</th>
+                                <th>Öne Çıkan Rakip</th>
+                                <th>Kampanya Mekaniği</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Stanley Termos 1.9L</strong></td>
+                                <td>n11/Hepsiburada</td>
+                                <td class="strategy">~%40'a Varan İndirimler</td>
+                            </tr>
+                             <tr>
+                                <td><strong>Karaca BioGranit Tencere Seti</strong></td>
+                                <td>Trendyol</td>
+                                <td class="strategy">~%50 Net İndirim + Kuponlar</td>
+                            </tr>
+                             <tr>
+                                <td><strong>Philips Hue Akıllı Ampul Seti</strong></td>
+                                <td>Amazon TR</td>
+                                <td class="strategy">~%25 Prime Özel Fiyat</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="category-gaming" class="section">
+                 <div class="section-header">
+                    <div class="section-icon"><i class="fas fa-gamepad"></i></div>
+                    <h2 class="section-title">Kategori Analizi: Hobi & Oyun</h2>
+                </div>
+                <div class="card">
+                    <h4>Konsol Savaşları ve Stok Yönetimi</h4>
+                    <p>Oyun kategorisi, <strong>Sony PlayStation 5</strong>'in stok bulunabilirliği etrafında şekillendi. Stokları olan platformlar (özellikle Hepsiburada ve Amazon), konsolu "bundle" paketler (örn: PS5 + Ekstra Kol + Oyun) halinde sunarak kârlılıklarını artırdı. Saf indirimler sınırlı kalırken, asıl fırsatlar oyun ve aksesuarlarda görüldü. <strong>Logitech'in oyuncu ekipmanları</strong> (mouse, klavye, kulaklık) ve popüler oyunların dijital kodları %50'ye varan indirimlerle sunuldu.</p>
+                </div>
+                <div class="data-table-wrapper">
+                     <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Çok Satan Ürünler</th>
+                                <th>Öne Çıkan Rakip</th>
+                                <th>Kampanya Mekaniği</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Sony PlayStation 5 + EA FC 25 Bundle</strong></td>
+                                <td>Hepsiburada/MediaMarkt</td>
+                                <td class="strategy">Bundle İndirimi + Taksit Seçenekleri</td>
+                            </tr>
+                             <tr>
+                                <td><strong>Logitech G502 Hero Oyuncu Mouse</strong></td>
+                                <td>Amazon TR</td>
+                                <td class="strategy">~%40 Prime Özel Fiyat</td>
+                            </tr>
+                             <tr>
+                                <td><strong>Nintendo Switch OLED</strong></td>
+                                <td>Trendyol</td>
+                                <td class="strategy">Sınırlı Stok, Kuponla Destekli Fiyat</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                 <div class="analysis-note">
+                    <div class="note-icon"><i class="fas fa-lightbulb"></i></div>
+                    <div class="note-content">
+                        <p><strong>Stratejik İçgörü:</strong> Konsol satışı tek başına yeterli değil. Asıl fırsat, konsol sahiplerine yönelik <strong>aksesuar, oyun ve online üyelik (PS Plus vb.)</strong> satışlarında. Turkcell Pasaj, bu ekosistemi hedefleyen özel kampanyalarla fark yaratabilir.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="swot-analysis" class="section">
+                <div class="section-header">
+                    <div class="section-icon"><i class="fas fa-balance-scale"></i></div>
+                    <h2 class="section-title">SWOT & Stratejik Öneriler</h2>
+                </div>
+                <div class="swot-grid">
+                    <div class="swot-card swot-strengths">
+                        <div class="swot-title"><i class="fas fa-check-circle"></i>Güçlü Yönler</div>
+                        <ul class="swot-list">
+                            <li class="swot-item"><strong>Turkcell Marka Güveni:</strong> Teknoloji ve güvenilirlik algısı.</li>
+                            <li class="swot-item"><strong>Mevcut Müşteri Tabanı:</strong> Milyonlarca Turkcell abonesine doğrudan erişim.</li>
+                            <li class="swot-item"><strong>Finansal Çözümler:</strong> Faturaya ek taksitlendirme gibi esnek ödeme seçenekleri.</li>
+                             <li class="swot-item"><strong>Teknoloji Odaklı DNA:</strong> Özellikle elektronik kategorisinde doğal bir uzmanlık algısı.</li>
+                        </ul>
+                    </div>
+                    <div class="swot-card swot-weaknesses">
+                        <div class="swot-title"><i class="fas fa-times-circle"></i>Zayıf Yönler</div>
+                        <ul class="swot-list">
+                            <li class="swot-item"><strong>Pazaryeri Algısı:</strong> Hepsiburada/Trendyol gibi "her şeyin bulunduğu" bir yer olarak görülmemesi.</li>
+                            <li class="swot-item"><strong>Fiyat Rekabeti:</strong> Pazar liderleri kadar agresif fiyatlandırma yapma zorluğu.</li>
+                            <li class="swot-item"><strong>Trafik Bağımlılığı:</strong> Organik e-ticaret trafiğinin liderlere göre daha düşük olması.</li>
+                            <li class="swot-item"><strong>Lojistik Kapasite:</strong> Kampanya dönemindeki aşırı talebi karşılama potansiyeli.</li>
+                        </ul>
+                    </div>
+                    <div class="swot-card swot-opportunities">
+                        <div class="swot-title"><i class="fas fa-lightbulb"></i>Fırsatlar</div>
+                        <ul class="swot-list">
+                            <li class="swot-item"><strong>Güven Açığı:</strong> "Sahte indirim" ve "kargo gecikmesi" sorunlarından bıkan tüketicilere "güvenilir" bir alternatif sunmak.</li>
+                            <li class="swot-item"><strong>Hızlı Teslimat Kozu:</strong> Lojistiği bir pazarlama aracına dönüştürerek "söz verilen zamanda teslimat" vaadiyle ayrışmak.</li>
+                            <li class="swot-item"><strong>Niş Kategori Liderliği:</strong> Akıllı telefon, giyilebilir teknoloji ve akıllı ev ürünleri gibi alanlarda uzmanlaşmak.</li>
+                            <li class="swot-item"><strong>Veri Kullanımı:</strong> Turkcell müşteri verisini kullanarak kişiselleştirilmiş teklifler sunmak.</li>
+                        </ul>
+                    </div>
+                    <div class="swot-card swot-threats">
+                        <div class="swot-title"><i class="fas fa-exclamation-triangle"></i>Tehditler</div>
+                        <ul class="swot-list">
+                            <li class="swot-item"><strong>Agresif Fiyat Savaşları:</strong> Büyük oyuncuların kâr marjından feragat ederek pazar payı kazanma stratejileri.</li>
+                            <li class="swot-item"><strong>Ekosistem Sadakati:</strong> Rakiplerin Premium/Prime üyelik gibi sadakat programları ile müşteri bağlaması.</li>
+                            <li class="swot-item"><strong>Artan Pazarlama Maliyetleri:</strong> Reklam harcamalarının kampanya döneminde tavan yapması.</li>
+                            <li class="swot-item"><strong>Regülasyonlar:</strong> E-ticaret yasaları ve Reklam Kurulu denetimlerinin sıkılaşması.</li>
+                        </ul>
+                    </div>
+                </div>
+                 <div class="card">
+                    <h3>2025 İçin Stratejik Eylem Planı</h3>
+                    <ul>
+                        <li><strong>"Sözümüz Söz: Zamanında Teslimat" Kampanyası:</strong> Lojistik gücünü öne çıkaran, gecikme durumunda telafi mekanizmaları sunan bir güven iletişimi yapılmalı.</li>
+                        <li><strong>"Gerçek İndirim" Garantisi:</strong> Kampanya öncesi fiyatları şeffaf bir şekilde gösteren, fiyat geçmişi grafikleri sunan bir yapı kurularak "sahte indirim" algısı kırılmalı.</li>
+                        <li><strong>"Akıllı Yaşam Paketleri" Kurgulamak:</strong> Yüksek talep gören Robot Süpürge, Akıllı Ampul, Airfryer gibi ürünleri içeren özel bundle teklifler hazırlanmalı.</li>
+                        <li><strong>Kişiselleştirilmiş Teklifler:</strong> Turkcell data'sı kullanılarak müşterilere "Cihaz Yükseltme", "Aksesuar Tamamlama" gibi özel, sadece onlara yönelik kupon ve indirimler sunularak sadakat artırılmalı.</li>
+                         <li><strong>Finansal Gücü Öne Çıkarmak:</strong> "Faturana Ek 12 Taksit" gibi Turkcell'e özel ödeme kolaylıkları, kampanyanın ana iletişim dili haline getirilmeli.</li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // === BÖLÜM 3: VERİ GÖRSELLEŞTİRME (CHART.JS) ===
+        function createChart(canvasId, config) {
+            const ctx = document.getElementById(canvasId)?.getContext('2d');
+            if (!ctx) return;
+            if (window.myCharts && window.myCharts[canvasId]) {
+                window.myCharts[canvasId].destroy();
+            }
+            const chart = new Chart(ctx, config);
+            if (!window.myCharts) window.myCharts = {};
+            window.myCharts[canvasId] = chart;
+        }
+
+        function renderBarChart(canvasId, title, labels, datasets, isHorizontal = false) {
+            const config = {
+                type: 'bar',
+                data: { labels, datasets },
+                options: {
+                    indexAxis: isHorizontal ? 'y' : 'x',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: { display: true, text: title, font: { size: 16, family: 'Montserrat' }, color: '#333' },
+                        legend: { display: datasets.length > 1, position: 'top' },
+                        datalabels: { 
+                            anchor: 'end', 
+                            align: 'end', 
+                            color: isHorizontal ? '#333' : '#fff',
+                            font: { weight: 'bold' }
+                        }
+                    },
+                    scales: {
+                        x: { grid: { display: false } },
+                        y: { grid: { color: '#e0e0e0' }, beginAtZero: true }
+                    }
+                }
+            };
+            createChart(canvasId, config);
+        }
+
+        function renderDoughnutChart(canvasId, title, labels, datasets) {
+            const config = {
+                type: 'doughnut',
+                data: { labels, datasets },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: { display: true, text: title, font: { size: 16, family: 'Montserrat' }, color: '#333' },
+                        legend: { position: 'bottom' },
+                        datalabels: {
+                            color: '#fff', font: { weight: 'bold' },
+                            formatter: (value, ctx) => {
+                                let sum = ctx.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                let percentage = (value * 100 / sum).toFixed(0);
+                                return percentage > 5 ? percentage + '%' : '';
+                            }
+                        }
+                    }
+                }
+            };
+            createChart(canvasId, config);
+        }
+
+        // === BÖLÜM 4: JAVASCRIPT ETKİLEŞİMLERİ ===
+        document.addEventListener('DOMContentLoaded', () => {
+            Chart.register(ChartDataLabels);
+            Chart.defaults.font.family = "'Inter', sans-serif";
+            Chart.defaults.color = getComputedStyle(document.documentElement).getPropertyValue('--text-primary').trim();
+            Chart.defaults.borderColor = getComputedStyle(document.documentElement).getPropertyValue('--border-color').trim();
+
+            const sidebar = document.getElementById('sidebar');
+            const menuToggle = document.getElementById('menuToggle');
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('.nav-item');
+            const backToTopBtn = document.getElementById('backToTop');
+            const progressBar = document.getElementById('progressBar');
+
+            menuToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                sidebar.classList.toggle('active');
+            });
+
+            document.addEventListener('click', (event) => {
+                if (window.innerWidth <= 1200 && sidebar.classList.contains('active')) {
+                    if (!sidebar.contains(event.target) && !menuToggle.contains(event.target)) {
+                        sidebar.classList.remove('active');
+                    }
+                }
+            });
+            
+            backToTopBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            function handleScroll() {
+                const scrollTotal = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (window.scrollY / scrollTotal) * 100;
+                progressBar.style.width = scrollPercent > 100 ? '100%' : scrollPercent + '%';
+                let sidebarWidth = 0;
+                if(window.innerWidth > 1200 && !sidebar.classList.contains('active')){
+                    sidebarWidth = sidebar.offsetWidth;
+                }
+                progressBar.style.left = `${sidebarWidth}px`;
+                backToTopBtn.style.display = (window.scrollY > 300) ? 'flex' : 'none';
+            }
+
+            const observer = new IntersectionObserver(entries => {
+                let visibleSections = [];
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        visibleSections.push(entry.target.getAttribute('id'));
+                    }
+                });
+
+                if (visibleSections.length > 0) {
+                     navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        const href = link.getAttribute('href').substring(1);
+                        if (visibleSections.includes(href)) {
+                           if(href === visibleSections[0]) link.classList.add('active');
+                        }
+                    });
+                }
+            }, { rootMargin: "-40% 0px -60% 0px", threshold: 0.5 });
+
+            sections.forEach(section => observer.observe(section));
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                    if (window.innerWidth <= 1200) sidebar.classList.remove('active');
+                });
+            });
+            
+            window.addEventListener('scroll', handleScroll);
+            window.addEventListener('resize', handleScroll);
+
+            // GRAFİK VERİLERİ VE OLUŞTURMA ÇAĞRILARI
+            renderDoughnutChart(
+                'kategoriDagilimiChart', 
+                'Kasım 2024 Talep Dağılımı',
+                ['Elektronik', 'Küçük Ev Aletleri', 'Moda', 'Kozmetik & Bakım', 'Diğer'],
+                [{
+                    label: 'Talep Oranı',
+                    data: [35, 30, 15, 12, 8],
+                    backgroundColor: ['#e53935', '#37474f', '#f57c00', '#2e7d32', '#616161'],
+                    borderColor: '#fff',
+                    borderWidth: 2
+                }]
+            );
+
+            renderBarChart(
+                'sikayetKonulariChart',
+                'Sosyal Medya Şikayet Hacmi (Mention Sayısı)',
+                ['Kargo Gecikmesi', 'Sahte İndirim', 'Stok Sorunları', 'Müşteri Hizmetleri', 'Kalite Problemi'],
+                [{
+                    label: 'Şikayet Sayısı',
+                    data: [19000, 15000, 8000, 6000, 5000],
+                    backgroundColor: '#d32f2f',
+                    borderRadius: 5
+                }],
+                true // Horizontal bar chart
+            );
+        });
+    </script>
+</body>
+</html>
+
